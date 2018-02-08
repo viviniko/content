@@ -1,0 +1,80 @@
+<?php
+
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateContentTable extends Migration
+{
+    /**
+     * @var string
+     */
+    protected $categoriesTable;
+
+    /**
+     * @var string
+     */
+    protected $pagesTable;
+
+    /**
+     * CreateCatalogTable constructor.
+     */
+    public function __construct()
+    {
+        $this->categoriesTable = Config::get('content.categories_table');
+        $this->pagesTable = Config::get('content.pages_table');
+    }
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        // Create table for storing categories
+        Schema::create($this->categoriesTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('parent_id')->default(0);
+            $table->string('name', 32);
+            $table->text('description')->nullable();
+            $table->integer('sort')->default(0);
+            $table->boolean('is_active')->default(true);
+
+            $table->string('url_rewrite')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->timestamps();
+        });
+
+        // Create table for storing pages
+        Schema::create($this->pagesTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('category_id');
+            $table->string('title');
+            $table->text('content');
+            $table->string('type', 32);
+            $table->string('url_rewrite')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+
+            $table->index(['category_id']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists($this->pagesTable);
+        Schema::dropIfExists($this->categoriesTable);
+    }
+}
