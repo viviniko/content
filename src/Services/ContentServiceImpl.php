@@ -30,7 +30,7 @@ class ContentServiceImpl implements ContentService
     {
         $categories = $this->categories();
         $lowerCategoryName = strtolower($categoryName);
-        $category = $categories->filter(function ($item) use ($lowerCategoryName) { strtolower($item->name) == $lowerCategoryName; })->first();
+        $category = $categories->filter(function ($item) use ($lowerCategoryName) { return strtolower($item->name) == $lowerCategoryName; })->first();
         $pages = collect([]);
         if ($category) {
             $pages = $this->pageRepository->findByCategoryId($category->id);
