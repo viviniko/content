@@ -74,10 +74,8 @@ class ContentServiceProvider extends BaseServiceProvider
 
     protected function registerContentService()
     {
-        $this->app->singleton(
-            \Viviniko\Content\Contracts\ContentService::class,
-            \Viviniko\Content\Services\ContentServiceImpl::class
-        );
+        $this->app->singleton('content', \Viviniko\Content\Services\ContentServiceImpl::class);
+        $this->app->alias('content', \Viviniko\Content\Contracts\ContentService::class);
     }
 
 
@@ -89,6 +87,7 @@ class ContentServiceProvider extends BaseServiceProvider
     public function provides()
     {
         return [
+            'content',
             \Viviniko\Content\Contracts\ContentService::class
         ];
     }

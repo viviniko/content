@@ -24,7 +24,10 @@
         "laravel": {
             "providers": [
                 "Viviniko\\Content\\ContentServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Content": "Viviniko\\Content\\Facades\\Content"
+            }
         }
     },
     "minimum-stability": "dev",
