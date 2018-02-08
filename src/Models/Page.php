@@ -12,7 +12,7 @@ class Page extends Model
 
     protected $tableConfigKey = 'content.pages_table';
 
-    protected $fillable = ['title', 'type', 'content', 'category_id', 'url_rewrite', 'meta_title', 'meta_keywords', 'meta_description'];
+    protected $fillable = ['title', 'type', 'content', 'category_id', 'url_rewrite', 'meta_title', 'meta_keywords', 'meta_description', 'is_active'];
 
     public function category()
     {

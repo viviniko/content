@@ -18,4 +18,24 @@ class ContentServiceImpl implements ContentService
         $this->pageRepository = $pageRepository;
     }
 
+    public function categories()
+    {
+        return $this->categoryRepository->all();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function pages($categoryName)
+    {
+        $categories = $this->categories();
+        $lowerCategoryName = strtolower($categoryName);
+        $category = $categories->filter(function ($item) use ($lowerCategoryName) { strtolower($item->name) == $lowerCategoryName; })->first();
+        $pages = collect([]);
+        if ($category) {
+            $pages = $this->pageRepository->findByCategoryId($category->id);
+        }
+
+        return $pages;
+    }
 }
