@@ -1,6 +1,6 @@
 <?php
 
-namespace Viviniko\Content\Contracts;
+namespace Viviniko\Content\Services;
 
 interface ContentService
 {

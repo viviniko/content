@@ -42,7 +42,7 @@ class ContentServiceProvider extends BaseServiceProvider
 
         $this->registerRepositories();
 
-        $this->registerContentService();
+        $this->registerService();
 
         $this->registerCommands();
     }
@@ -72,10 +72,20 @@ class ContentServiceProvider extends BaseServiceProvider
         );
     }
 
-    protected function registerContentService()
+    protected function registerService()
     {
-        $this->app->singleton('content', \Viviniko\Content\Services\ContentServiceImpl::class);
-        $this->app->alias('content', \Viviniko\Content\Contracts\ContentService::class);
+        $this->app->singleton(
+            \Viviniko\Content\Services\CategoryService::class,
+            \Viviniko\Content\Services\Impl\CategoryServiceImpl::class
+        );
+
+        $this->app->singleton(
+            \Viviniko\Content\Services\PageService::class,
+            \Viviniko\Content\Services\Impl\PageServiceImpl::class
+        );
+
+        $this->app->singleton('content', \Viviniko\Content\Services\Impl\ContentServiceImpl::class);
+        $this->app->alias('content', \Viviniko\Content\Services\ContentService::class);
     }
 
 
@@ -88,7 +98,9 @@ class ContentServiceProvider extends BaseServiceProvider
     {
         return [
             'content',
-            \Viviniko\Content\Contracts\ContentService::class
+            \Viviniko\Content\Services\ContentService::class,
+            \Viviniko\Content\Services\CategoryService::class,
+            \Viviniko\Content\Services\PageService::class,
         ];
     }
 }

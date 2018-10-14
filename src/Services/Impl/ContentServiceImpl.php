@@ -1,10 +1,10 @@
 <?php
 
-namespace Viviniko\Content\Services;
+namespace Viviniko\Content\Services\Impl;
 
-use Viviniko\Content\Contracts\ContentService;
 use Viviniko\Content\Repositories\Category\CategoryRepository;
 use Viviniko\Content\Repositories\Page\PageRepository;
+use Viviniko\Content\Services\ContentService;
 
 class ContentServiceImpl implements ContentService
 {
