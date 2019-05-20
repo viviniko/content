@@ -11,14 +11,4 @@ class EloquentPage extends EloquentRepository implements PageRepository
     {
         parent::__construct(Config::get('content.page'));
     }
-
-    protected $fieldSearchable = ['id', 'title' => 'like', 'category_id', 'is_active', 'type'];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function findByCategoryId($categoryId)
-    {
-        return $this->findBy('category_id', $categoryId);
-    }
 }
