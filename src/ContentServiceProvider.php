@@ -5,7 +5,6 @@ namespace Viviniko\Content;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Viviniko\Content\Console\Commands\ContentTableCommand;
-use Viviniko\Content\Models\Category;
 
 class ContentServiceProvider extends BaseServiceProvider
 {
@@ -50,8 +49,6 @@ class ContentServiceProvider extends BaseServiceProvider
 
         $this->registerRepositories();
 
-        $this->registerService();
-
         $this->registerCommands();
     }
 
@@ -80,22 +77,6 @@ class ContentServiceProvider extends BaseServiceProvider
         );
     }
 
-    protected function registerService()
-    {
-        $this->app->singleton(
-            \Viviniko\Content\Services\CategoryService::class,
-            \Viviniko\Content\Services\Impl\CategoryServiceImpl::class
-        );
-
-        $this->app->singleton(
-            \Viviniko\Content\Services\PageService::class,
-            \Viviniko\Content\Services\Impl\PageServiceImpl::class
-        );
-
-        $this->app->singleton('content', \Viviniko\Content\Services\Impl\ContentServiceImpl::class);
-        $this->app->alias('content', \Viviniko\Content\Services\ContentService::class);
-    }
-
 
     /**
      * Get the services provided by the provider.
@@ -105,10 +86,6 @@ class ContentServiceProvider extends BaseServiceProvider
     public function provides()
     {
         return [
-            'content',
-            \Viviniko\Content\Services\ContentService::class,
-            \Viviniko\Content\Services\CategoryService::class,
-            \Viviniko\Content\Services\PageService::class,
         ];
     }
 }
