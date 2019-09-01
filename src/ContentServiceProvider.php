@@ -2,6 +2,7 @@
 
 namespace Viviniko\Content;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Viviniko\Content\Console\Commands\ContentTableCommand;
 use Viviniko\Content\Models\Category;
@@ -29,6 +30,13 @@ class ContentServiceProvider extends BaseServiceProvider
 
         // Register commands
         $this->commands('command.content.table');
+
+        $config = $this->app['config'];
+
+        Relation::morphMap([
+            'content.category' => $config->get('content.category'),
+            'content.page' => $config->get('catalog.page'),
+        ]);
     }
 
     /**
