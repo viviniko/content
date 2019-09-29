@@ -10,20 +10,32 @@ class CreateContentTable extends Migration
     /**
      * @var string
      */
+    protected $modelsTable;
+
+    /**
+     * @var string
+     */
+    protected $fieldsTable;
+
+    /**
+     * @var string
+     */
     protected $categoriesTable;
 
     /**
      * @var string
      */
-    protected $pagesTable;
+    protected $postsTable;
 
     /**
      * CreateCatalogTable constructor.
      */
     public function __construct()
     {
+        $this->modelsTable = Config::get('content.models_table');
+        $this->fieldsTable = Config::get('content.fields_table');
         $this->categoriesTable = Config::get('content.categories_table');
-        $this->pagesTable = Config::get('content.pages_table');
+        $this->postsTable = Config::get('content.posts_table');
     }
 
     /**
@@ -33,6 +45,27 @@ class CreateContentTable extends Migration
      */
     public function up()
     {
+        Schema::create($this->modelsTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 32)->unique();
+            $table->string('description')->nullable();
+            $table->string('type', 32);
+            $table->boolean('is_system')->default(false);
+            $table->timestamps();
+        });
+
+        Schema::create($this->fieldsTable, function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('model_id');
+            $table->string('name', 32);
+            $table->string('display_name', 64)->nullable();
+            $table->string('description')->nullable();
+            $table->boolean('is_required')->default(false);
+            $table->string('input_type', 32);
+            $table->text('input_data')->nullable();
+            $table->timestamps();
+        });
+
         // Create table for storing categories
         Schema::create($this->categoriesTable, function (Blueprint $table) {
             $table->increments('id');
@@ -49,13 +82,15 @@ class CreateContentTable extends Migration
             $table->timestamps();
         });
 
-        // Create table for storing pages
-        Schema::create($this->pagesTable, function (Blueprint $table) {
+        // Create table for storing posts
+        Schema::create($this->postsTable, function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->string('title');
+            $table->string('description')->nullable();
             $table->text('content');
-            $table->string('type', 32);
+            $table->text('data');
+            $table->integer('position')->default(0);
             $table->string('url_rewrite')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();
@@ -74,7 +109,9 @@ class CreateContentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists($this->pagesTable);
+        Schema::dropIfExists($this->postsTable);
         Schema::dropIfExists($this->categoriesTable);
+        Schema::dropIfExists($this->fieldsTable);
+        Schema::dropIfExists($this->modelsTable);
     }
 }

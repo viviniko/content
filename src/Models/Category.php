@@ -2,6 +2,7 @@
 
 namespace Viviniko\Content\Models;
 
+use Illuminate\Support\Facades\Config;
 use Viviniko\Support\Database\Eloquent\Model;
 use Viviniko\Urlrewrite\UrlrewriteTrait;
 
@@ -12,7 +13,7 @@ class Category extends Model
     protected $tableConfigKey = 'content.categories_table';
 
     protected $fillable = [
-        'name', 'description', 'is_active', 'parent_id', 'sort',
+        'name', 'description', 'is_active', 'parent_id', 'sort', 'model_id',
         'url_rewrite', 'meta_title', 'meta_keywords', 'meta_description',
     ];
 
@@ -23,6 +24,11 @@ class Category extends Model
     public function parent()
     {
         return $this->belongsTo(static::class, 'parent_id');
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(Config::get('content.model'), 'model_id');
     }
 
     public function children()

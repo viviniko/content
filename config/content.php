@@ -3,9 +3,17 @@
 return [
     'categories_table' => 'content_categories',
 
-    'pages_table' => 'content_pages',
+    'posts_table' => 'content_posts',
+
+    'models_table' => 'content_models',
+
+    'fields_table' => 'content_fields',
+
+    'model' => 'Viviniko\Content\Models\Model',
+
+    'field' => 'Viviniko\Content\Models\Field',
 
     'category' => 'Viviniko\Content\Models\Category',
 
-    'page' => 'Viviniko\Content\Models\Page',
+    'post' => 'Viviniko\Content\Models\Post',
 ];

@@ -67,13 +67,23 @@ class ContentServiceProvider extends BaseServiceProvider
     protected function registerRepositories()
     {
         $this->app->singleton(
+            \Viviniko\Content\Repositories\Model\ModelRepository::class,
+            \Viviniko\Content\Repositories\Model\EloquentModel::class
+        );
+
+        $this->app->singleton(
+            \Viviniko\Content\Repositories\Field\FieldRepository::class,
+            \Viviniko\Content\Repositories\Field\EloquentField::class
+        );
+
+        $this->app->singleton(
             \Viviniko\Content\Repositories\Category\CategoryRepository::class,
             \Viviniko\Content\Repositories\Category\EloquentCategory::class
         );
 
         $this->app->singleton(
-            \Viviniko\Content\Repositories\Page\PageRepository::class,
-            \Viviniko\Content\Repositories\Page\EloquentPage::class
+            \Viviniko\Content\Repositories\Post\PostRepository::class,
+            \Viviniko\Content\Repositories\Post\EloquentPost::class
         );
     }
 
