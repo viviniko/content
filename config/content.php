@@ -5,6 +5,8 @@ return [
 
     'posts_table' => 'content_posts',
 
+    'data_table' => 'content_post_data',
+
     'models_table' => 'content_models',
 
     'fields_table' => 'content_fields',
@@ -16,4 +18,6 @@ return [
     'category' => 'Viviniko\Content\Models\Category',
 
     'post' => 'Viviniko\Content\Models\Post',
+
+    'data' => 'Viviniko\Content\Models\Data',
 ];
