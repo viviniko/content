@@ -4,6 +4,7 @@ namespace Viviniko\Content;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Config;
+use Viviniko\Content\Models\Data;
 
 trait HasDataTrait
 {
@@ -23,15 +24,8 @@ trait HasDataTrait
     public function setData($data)
     {
         if ($this->withData($data)->exists()) {
-            $this->persistData();
+            static::persistModelData($this);
         }
-    }
-
-    public function persistData()
-    {
-        $this->data()->save([
-            'data' => $this->getData()
-        ]);
     }
 
     /**
@@ -42,7 +36,7 @@ trait HasDataTrait
     public static function bootHasDataTrait()
     {
         static::saved(function ($model) {
-            $model->persistData();
+            static::persistModelData($model);
         });
 
         static::deleted(function ($model) {
@@ -57,5 +51,12 @@ trait HasDataTrait
     public function data()
     {
         return $this->hasOne(Config::get('content.data'), 'id');
+    }
+
+    protected function persistModelData($model)
+    {
+        $model->data()->updateOrCreate(['id' => $model->getKey()], [
+            'data' => $model->getData()
+        ]);
     }
 }

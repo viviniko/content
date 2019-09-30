@@ -17,6 +17,10 @@ class Data extends Model
         'id', 'data',
     ];
 
+    protected $casts = [
+        'data' => 'array'
+    ];
+
     public function item()
     {
         return $this->belongsTo(Config::get('content.item'), 'id');
