@@ -9,7 +9,7 @@ trait HasDataTrait
 {
     private $data;
 
-    public function setData($data)
+    public function withData($data)
     {
         $this->data = $data;
         return $this;
@@ -20,6 +20,20 @@ trait HasDataTrait
         return $this->data;
     }
 
+    public function setData($data)
+    {
+        if ($this->withData($data)->exists()) {
+            $this->persistData();
+        }
+    }
+
+    public function persistData()
+    {
+        $this->data()->save([
+            'data' => $this->getData()
+        ]);
+    }
+
     /**
      * Boot the HasDataTrait trait for a model.
      *
@@ -28,11 +42,7 @@ trait HasDataTrait
     public static function bootHasDataTrait()
     {
         static::saved(function ($model) {
-            if (!empty($this->getData())) {
-                $model->data()->save([
-                    'data' => $this->getData()
-                ]);
-            }
+            $model->persistData();
         });
 
         static::deleted(function ($model) {
