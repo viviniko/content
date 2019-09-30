@@ -49,6 +49,8 @@ class ContentServiceProvider extends BaseServiceProvider
 
         $this->registerRepositories();
 
+        $this->registerService();
+
         $this->registerCommands();
     }
 
