@@ -78,8 +78,10 @@ class CreateContentTable extends Migration
             $table->unsignedInteger('parent_id')->default(0);
             $table->unsignedInteger('model_id')->default(0);
             $table->string('name', 32);
-            $table->text('description')->nullable();
-            $table->integer('sort')->default(0);
+            $table->text('description');
+            $table->string('type', 32);
+            $table->integer('position')->default(0);
+            $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('url_rewrite')->nullable();
             $table->string('meta_title')->nullable();
@@ -95,6 +97,7 @@ class CreateContentTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->integer('position')->default(0);
+            $table->string('image')->nullable();
             $table->string('url_rewrite')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();

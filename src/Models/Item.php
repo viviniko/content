@@ -13,7 +13,7 @@ class Item extends Model
     protected $tableConfigKey = 'content.items_table';
 
     protected $fillable = [
-        'category_id', 'title', 'description', 'position', 'url_rewrite', 'is_active'
+        'category_id', 'title', 'description', 'position', 'image', 'url_rewrite', 'is_active'
     ];
 
     public function category()

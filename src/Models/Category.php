@@ -13,7 +13,7 @@ class Category extends Model
     protected $tableConfigKey = 'content.categories_table';
 
     protected $fillable = [
-        'name', 'description', 'is_active', 'parent_id', 'sort', 'model_id',
+        'name', 'description', 'is_active', 'parent_id', 'position', 'model_id', 'type', 'image',
         'url_rewrite', 'meta_title', 'meta_keywords', 'meta_description',
     ];
 
@@ -26,13 +26,18 @@ class Category extends Model
         return $this->belongsTo(static::class, 'parent_id');
     }
 
+    public function children()
+    {
+        return $this->hasMany(static::class, 'parent_id');
+    }
+
     public function model()
     {
         return $this->belongsTo(Config::get('content.model'), 'model_id');
     }
 
-    public function children()
+    public function items()
     {
-        return $this->hasMany(static::class, 'parent_id');
+        return $this->hasMany(Config::get('content.item'), 'category_id');
     }
 }
