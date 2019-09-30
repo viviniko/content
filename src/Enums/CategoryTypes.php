@@ -11,8 +11,8 @@ class CategoryTypes
     public static function values()
     {
         return [
-            static::MENU => 'Menu',
             static::LIST => 'List',
+            static::MENU => 'Menu',
             static::SINGLE => 'Single',
         ];
     }
