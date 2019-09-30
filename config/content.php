@@ -3,9 +3,9 @@
 return [
     'categories_table' => 'content_categories',
 
-    'posts_table' => 'content_posts',
+    'items_table' => 'content_items',
 
-    'data_table' => 'content_post_data',
+    'data_table' => 'content_data',
 
     'models_table' => 'content_models',
 
@@ -17,7 +17,7 @@ return [
 
     'category' => 'Viviniko\Content\Models\Category',
 
-    'post' => 'Viviniko\Content\Models\Post',
+    'item' => 'Viviniko\Content\Models\Item',
 
     'data' => 'Viviniko\Content\Models\Data',
 ];

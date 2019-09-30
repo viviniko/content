@@ -6,15 +6,14 @@ use Illuminate\Support\Facades\Config;
 use Viviniko\Support\Database\Eloquent\Model;
 use Viviniko\Urlrewrite\UrlrewriteTrait;
 
-class Post extends Model
+class Item extends Model
 {
     use UrlrewriteTrait;
 
-    protected $tableConfigKey = 'content.posts_table';
+    protected $tableConfigKey = 'content.items_table';
 
     protected $fillable = [
-        'category_id', 'title', 'description', 'position',
-        'url_rewrite', 'meta_title', 'meta_keywords', 'meta_description', 'is_active'
+        'category_id', 'title', 'description', 'position', 'url_rewrite', 'is_active'
     ];
 
     public function category()

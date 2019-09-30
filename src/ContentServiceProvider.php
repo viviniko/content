@@ -82,8 +82,8 @@ class ContentServiceProvider extends BaseServiceProvider
         );
 
         $this->app->singleton(
-            \Viviniko\Content\Repositories\Post\PostRepository::class,
-            \Viviniko\Content\Repositories\Post\EloquentPost::class
+            \Viviniko\Content\Repositories\Item\ItemRepository::class,
+            \Viviniko\Content\Repositories\Item\EloquentItem::class
         );
     }
 
