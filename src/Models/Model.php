@@ -16,6 +16,6 @@ class Model extends Eloquent
 
     public function fields()
     {
-        return $this->hasMany(Config::get('widget.widget_model_field'), 'model_id');
+        return $this->hasMany(Config::get('content.field'), 'model_id');
     }
 }
