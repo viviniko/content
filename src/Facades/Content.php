@@ -1,6 +1,6 @@
 <?php
 
-namespace Viviniko\Widget\Facades;
+namespace Viviniko\Content\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
