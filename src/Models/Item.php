@@ -3,12 +3,13 @@
 namespace Viviniko\Content\Models;
 
 use Illuminate\Support\Facades\Config;
+use Viviniko\Content\HasDataTrait;
 use Viviniko\Support\Database\Eloquent\Model;
 use Viviniko\Urlrewrite\UrlrewriteTrait;
 
 class Item extends Model
 {
-    use UrlrewriteTrait;
+    use UrlrewriteTrait, HasDataTrait;
 
     protected $tableConfigKey = 'content.items_table';
 
@@ -19,10 +20,5 @@ class Item extends Model
     public function category()
     {
         return $this->belongsTo(Config::get('content.category'), 'category_id');
-    }
-
-    public function data()
-    {
-        return $this->hasOne(Config::get('content.data'), 'id');
     }
 }
