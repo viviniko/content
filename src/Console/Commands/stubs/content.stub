@@ -25,7 +25,7 @@ class CreateContentTable extends Migration
     /**
      * @var string
      */
-    protected $postsTable;
+    protected $itemsTable;
 
     /**
      * @var string
@@ -40,7 +40,7 @@ class CreateContentTable extends Migration
         $this->modelsTable = Config::get('content.models_table');
         $this->fieldsTable = Config::get('content.fields_table');
         $this->categoriesTable = Config::get('content.categories_table');
-        $this->postsTable = Config::get('content.posts_table');
+        $this->itemsTable = Config::get('content.items_table');
         $this->dataTable = Config::get('content.data_table');
     }
 
@@ -89,7 +89,7 @@ class CreateContentTable extends Migration
         });
 
         // Create table for storing posts
-        Schema::create($this->postsTable, function (Blueprint $table) {
+        Schema::create($this->itemsTable, function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->string('title');
@@ -120,7 +120,7 @@ class CreateContentTable extends Migration
     public function down()
     {
         Schema::dropIfExists($this->dataTable);
-        Schema::dropIfExists($this->postsTable);
+        Schema::dropIfExists($this->itemsTable);
         Schema::dropIfExists($this->categoriesTable);
         Schema::dropIfExists($this->fieldsTable);
         Schema::dropIfExists($this->modelsTable);
