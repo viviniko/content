@@ -34,7 +34,7 @@ class ContentServiceProvider extends BaseServiceProvider
 
         Relation::morphMap([
             'content.category' => $config->get('content.category'),
-            'content.page' => $config->get('catalog.page'),
+            'content.item' => $config->get('catalog.item'),
         ]);
     }
 
@@ -85,6 +85,13 @@ class ContentServiceProvider extends BaseServiceProvider
             \Viviniko\Content\Repositories\Item\ItemRepository::class,
             \Viviniko\Content\Repositories\Item\EloquentItem::class
         );
+    }
+
+    private function registerService()
+    {
+        $this->app->singleton('content', \Viviniko\Content\Factory::class);
+
+        $this->app->alias('content', \Viviniko\Content\Contracts\Factory::class);
     }
 
 
