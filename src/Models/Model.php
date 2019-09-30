@@ -1,5 +1,5 @@
 <?php
-namespace Viviniko\Widget\Models;
+namespace Viviniko\Content\Models;
 
 use Illuminate\Support\Facades\Config;
 use Viviniko\Support\Database\Eloquent\Model as Eloquent;
