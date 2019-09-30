@@ -4,7 +4,7 @@ namespace Viviniko\Content;
 
 use Illuminate\Support\Facades\Log;
 use Viviniko\Content\Contracts\Factory;
-use Viviniko\Content\Enums\Types;
+use Viviniko\Content\Enums\CategoryTypes;
 use Viviniko\Content\Models\Category;
 
 class Viewer
@@ -24,11 +24,11 @@ class Viewer
         $items = $this->factory->getDataByCategoryId($this->category->id);
 
         try {
-            if ($this->category->type == Types::MENU) {
+            if ($this->category->type == CategoryTypes::MENU) {
                 return $this->factory->buildTree($this->category->items);
-            } else if ($this->category->type == Types::SINGLE) {
+            } else if ($this->category->type == CategoryTypes::SINGLE) {
                 return $items->sortBy('position')->first();
-            } else if ($this->category->type == Types::LIST) {
+            } else if ($this->category->type == CategoryTypes::LIST) {
                 return $items->sortBy('position');
             }
         } catch (\Exception $e) {

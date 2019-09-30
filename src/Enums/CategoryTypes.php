@@ -2,7 +2,7 @@
 
 namespace Viviniko\Content\Enums;
 
-class Types
+class CategoryTypes
 {
     const MENU = 'Menu';
     const LIST = 'List';

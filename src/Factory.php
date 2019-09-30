@@ -5,7 +5,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Viviniko\Content\Contracts\Factory as FactoryContract;
-use Viviniko\Content\Enums\Types;
+use Viviniko\Content\Enums\CategoryTypes;
 use Viviniko\Content\Repositories\Category\CategoryRepository;
 
 class Factory implements FactoryContract
@@ -80,7 +80,7 @@ class Factory implements FactoryContract
         if (!property_exists($data, 'url')) {
             $data->url = data_get($data, 'link') ?? data_get($data, 'href');
         }
-        if ($category->type === Types::MENU) {
+        if ($category->type === CategoryTypes::MENU) {
             if (!property_exists($data, 'parent_id')) {
                 $data->parent_id = 0;
             }
