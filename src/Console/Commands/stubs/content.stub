@@ -78,6 +78,7 @@ class CreateContentTable extends Migration
             $table->unsignedInteger('parent_id')->default(0);
             $table->unsignedInteger('model_id')->default(0);
             $table->string('name', 32);
+            $table->string('slug');
             $table->text('description');
             $table->string('type', 32);
             $table->integer('position')->default(0);
@@ -88,6 +89,8 @@ class CreateContentTable extends Migration
             $table->string('meta_keywords')->nullable();
             $table->string('meta_description')->nullable();
             $table->timestamps();
+
+            $table->unique('slug');
         });
 
         // Create table for storing posts

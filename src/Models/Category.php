@@ -13,8 +13,8 @@ class Category extends Model
     protected $tableConfigKey = 'content.categories_table';
 
     protected $fillable = [
-        'name', 'description', 'is_active', 'parent_id', 'position', 'model_id', 'type', 'image',
-        'url_rewrite', 'meta_title', 'meta_keywords', 'meta_description',
+        'name', 'slug', 'description', 'is_active', 'parent_id', 'position', 'model_id', 'type', 'image',
+        'meta_title', 'meta_keywords', 'meta_description',
     ];
 
     protected $casts = [
@@ -39,5 +39,10 @@ class Category extends Model
     public function items()
     {
         return $this->hasMany(Config::get('content.item'), 'category_id');
+    }
+
+    public function getUrlrewriteKeyName()
+    {
+        return 'slug';
     }
 }
