@@ -75,7 +75,7 @@ class Factory implements FactoryContract
 
     protected static function getDataByCategoryAndItem($category, $item)
     {
-        $data = $item->getData();
+        $data = $item->data;
 
         if (!property_exists($data, 'url')) {
             $data->url = data_get($data, 'link') ?? data_get($data, 'href');
