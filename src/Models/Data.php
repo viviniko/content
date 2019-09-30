@@ -17,8 +17,8 @@ class Data extends Model
         'id', 'data',
     ];
 
-    public function post()
+    public function item()
     {
-        return $this->belongsTo(Config::get('content.post'), 'id');
+        return $this->belongsTo(Config::get('content.item'), 'id');
     }
 }
