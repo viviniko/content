@@ -69,7 +69,7 @@ class Factory implements FactoryContract
                 $item->children = Collection::make($groupNodes->get($item->id, []));
                 return $item;
             })->filter(function($item) use ($parentId, $parentKey) {
-                return $item->{$parentKey} == $parentId;
+                return data_get($item, $parentKey) == $parentId;
             })->values();
     }
 
