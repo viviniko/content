@@ -40,7 +40,7 @@ trait HasDataTrait
      */
     public static function bootHasDataTrait()
     {
-        static::saved(function ($model) {
+        static::created(function ($model) {
             static::persistModelData($model);
         });
 
