@@ -70,7 +70,7 @@ trait HasDataTrait
 
     public function getDataAttribute()
     {
-        $data = array_merge($this->toArray(), $this->getOriginalData(), ['url' => $this->url]);
+        $data = array_merge($this->toArray(), $this->getOriginalData());
 
         return (object)$data;
     }

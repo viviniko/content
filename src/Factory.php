@@ -71,26 +71,31 @@ class Factory implements FactoryContract
     {
         $data = $item->data;
 
-        if (!property_exists($data, 'url')) {
-            $data->url = data_get($data, 'link') ?? data_get($data, 'href') ?? data_get($data, 'slug');
-        }
+        $data->url = self::try_data_get($data, 'slug', 'link', 'href');
+
         if ($category->type === CategoryTypes::MENU) {
-            if (!property_exists($data, 'parent_id')) {
-                $data->parent_id = 0;
+            $data->parent_id = data_get($data, 'parent_id', 0);
+            $data->text = self::try_data_get($data, 'text', 'title', 'name');
+            if ($data->text && !empty($data->url)) {
+                $data->text .= "({$data->url})";
             }
-            if (!property_exists($data, 'text')) {
-                $data->text = data_get($data, 'title') ?? data_get($data, 'name');
-            }
-            if ($data->text && property_exists($data, 'slug') && $data->slug) {
-                $data->text .= "({$data->slug})";
-            }
-            if (!property_exists($data, 'icon')) {
-                if ($icon = data_get($data, 'image') ?? data_get($data, 'picture')) {
-                    $data->icon = $icon;
-                }
+
+            $data->icon = self::try_data_get($data, 'icon', 'image', 'picture');
+        }
+
+        $data->url = url($data->url);
+
+        return $data;
+    }
+
+    public static function try_data_get($data, ...$keys)
+    {
+        foreach ($keys as $key) {
+            if (($item = data_get($data, $key)) && !empty($item)) {
+                return $item;
             }
         }
 
-        return $data;
+        return null;
     }
 }
