@@ -71,7 +71,7 @@ class Factory implements FactoryContract
     {
         $data = $item->data;
 
-        $data->url = self::try_data_get($data, 'slug', 'link', 'href');
+        $data->url = self::try_data_get($data, 'slug', 'url', 'link', 'href');
 
         if ($category->type === CategoryTypes::MENU) {
             $data->parent_id = data_get($data, 'parent_id', 0);
