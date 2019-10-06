@@ -27,12 +27,16 @@ trait HasDataTrait
         if ($this->withData($data)->exists()) {
             static::persistModelData($this);
         }
+
+        return $this;
     }
 
     public function mergeData($data)
     {
         $data = array_merge((array)$this->data, $this->getOriginalData(), $data);
         $this->setData($data);
+
+        return $this;
     }
 
     /**
