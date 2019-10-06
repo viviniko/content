@@ -76,7 +76,7 @@ trait HasDataTrait
         if (($result = parent::__get($name)) !== null) {
             return $result;
         }
-        
+
         return ($data = $this->getDataAttribute()) && property_exists($data, $name) ? data_get($data, $name) : $result;
     }
 

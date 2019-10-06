@@ -27,14 +27,8 @@ class Factory implements FactoryContract
         return $widget ? new Viewer($this, $widget) : null;
     }
 
-    public function render($name, $ttl = null)
+    public function render($name, $view, $ttl = null)
     {
-        if (is_array($name)) {
-            $view = $name[1];
-            $name = $name[0];
-        } else {
-            $view = $name;
-        }
         return Cache::tags(['content.' . $name])->remember("content/categories/{$name}/{$view}", $ttl ?: Config::get('cache.ttl'), function () use ($name, $view) {
             $viewer = $this->make($name);
             return $viewer ? $viewer->render($view) : "";
