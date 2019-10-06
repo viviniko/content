@@ -21,12 +21,4 @@ class Item extends Model
     {
         return $this->belongsTo(Config::get('content.category'), 'category_id');
     }
-
-    public function getDataAttribute()
-    {
-        $data = (array)data_get($this->data()->first(['data']), 'data', []);
-        $data = array_merge($this->toArray(), $data, ['url' => $this->url]);
-
-        return (object)$data;
-    }
 }

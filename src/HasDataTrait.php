@@ -9,6 +9,8 @@ trait HasDataTrait
 {
     private $data;
 
+    private $originalData;
+
     public function withData($data)
     {
         $this->data = $data;
@@ -29,7 +31,7 @@ trait HasDataTrait
 
     public function mergeData($data)
     {
-        $data = array_merge((array)$this->data, data_get($this->data()->first(['data']), 'data', []), $data);
+        $data = array_merge((array)$this->data, $this->getOriginalData(), $data);
         $this->setData($data);
     }
 
@@ -44,6 +46,10 @@ trait HasDataTrait
             static::persistModelData($model);
         });
 
+        static::saved(function ($model) {
+            $model->refreshOriginalData();
+        });
+
         static::deleted(function ($model) {
             try {
                 $model->data()->delete();
@@ -56,6 +62,32 @@ trait HasDataTrait
     public function data()
     {
         return $this->hasOne(Config::get('content.data'), 'id');
+    }
+
+    public function getDataAttribute()
+    {
+        $data = array_merge($this->toArray(), $this->getOriginalData(), ['url' => $this->url]);
+
+        return (object)$data;
+    }
+
+    public function __get($name)
+    {
+        $data = $this->data;
+        return property_exists($data, $name) ? data_get($data, $name) : parent::__get($name);
+    }
+
+    public function getOriginalData()
+    {
+        if (!$this->originalData) {
+            $this->originalData = (array)data_get($this->data()->first(['data']), 'data', []);
+        }
+        return $this->originalData;
+    }
+
+    public function refreshOriginalData()
+    {
+        $this->originalData = null;
     }
 
     protected static function persistModelData($model)
