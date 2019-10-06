@@ -67,6 +67,7 @@ class CreateContentTable extends Migration
             $table->string('display_name', 64)->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_required')->default(false);
+            $table->boolean('is_display')->default(false);
             $table->string('input_type', 32);
             $table->text('input_data')->nullable();
             $table->timestamps();
