@@ -78,7 +78,7 @@ class Factory implements FactoryContract
         $data = $item->data;
 
         if (!property_exists($data, 'url')) {
-            $data->url = data_get($data, 'link') ?? data_get($data, 'href');
+            $data->url = data_get($data, 'link') ?? data_get($data, 'href') ?? data_get($data, 'slug');
         }
         if ($category->type === CategoryTypes::MENU) {
             if (!property_exists($data, 'parent_id')) {
@@ -87,17 +87,14 @@ class Factory implements FactoryContract
             if (!property_exists($data, 'text')) {
                 $data->text = data_get($data, 'title') ?? data_get($data, 'name');
             }
-            if ($data->text && $data->url) {
-                $data->text .= "({$data->url})";
+            if ($data->text && property_exists($data, 'slug') && $data->slug) {
+                $data->text .= "({$data->slug})";
             }
             if (!property_exists($data, 'icon')) {
-                if ($icon = data_get($data, 'icon') ?? data_get($data, 'image') ?? data_get($data, 'picture')) {
+                if ($icon = data_get($data, 'image') ?? data_get($data, 'picture')) {
                     $data->icon = $icon;
                 }
             }
-        }
-        if ($data->url) {
-            $data->url = url($data->url);
         }
 
         return $data;

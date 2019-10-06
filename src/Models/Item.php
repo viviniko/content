@@ -4,17 +4,17 @@ namespace Viviniko\Content\Models;
 
 use Illuminate\Support\Facades\Config;
 use Viviniko\Content\HasDataTrait;
+use Viviniko\Rewrite\RewriteTrait;
 use Viviniko\Support\Database\Eloquent\Model;
-use Viviniko\Urlrewrite\UrlrewriteTrait;
 
 class Item extends Model
 {
-    use UrlrewriteTrait, HasDataTrait;
+    use RewriteTrait, HasDataTrait;
 
     protected $tableConfigKey = 'content.items_table';
 
     protected $fillable = [
-        'category_id', 'title', 'description', 'position', 'image', 'url_rewrite', 'is_active'
+        'category_id', 'title', 'description', 'position', 'image', 'slug', 'is_active'
     ];
 
     public function category()
@@ -25,7 +25,7 @@ class Item extends Model
     public function getDataAttribute()
     {
         $data = data_get($this->data()->first(['data']), 'data');
-        $data = array_merge($this->toArray(), $data);
+        $data = array_merge($this->toArray(), $data, ['url' => $this->url]);
 
         return (object)$data;
     }
