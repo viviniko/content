@@ -73,8 +73,11 @@ trait HasDataTrait
 
     public function __get($name)
     {
-        $data = $this->data;
-        return property_exists($data, $name) ? data_get($data, $name) : parent::__get($name);
+        if (($result = parent::__get($name)) !== null) {
+            return $result;
+        }
+        
+        return ($data = $this->getDataAttribute()) && property_exists($data, $name) ? data_get($data, $name) : $result;
     }
 
     public function getOriginalData()
