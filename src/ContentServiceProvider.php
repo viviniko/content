@@ -27,7 +27,7 @@ class ContentServiceProvider extends BaseServiceProvider
 
         Relation::morphMap([
             'content.category' => $config->get('content.category'),
-            'content.item' => $config->get('catalog.item'),
+            'content.item' => $config->get('content.item'),
         ]);
     }
 
