@@ -14,11 +14,21 @@ class Item extends Model
     protected $tableConfigKey = 'content.items_table';
 
     protected $fillable = [
-        'category_id', 'title', 'description', 'position', 'image', 'slug', 'is_active'
+        'category_id', 'parent_id', 'title', 'description', 'position', 'image', 'slug', 'is_active'
     ];
 
     public function category()
     {
         return $this->belongsTo(Config::get('content.category'), 'category_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Config::get('content.item'), 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Config::get('content.item'), 'parent_id');
     }
 }

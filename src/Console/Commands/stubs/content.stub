@@ -96,6 +96,7 @@ class CreateContentTable extends Migration
         // Create table for storing posts
         Schema::create($this->itemsTable, function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('parent_id')->default(0);
             $table->unsignedInteger('category_id');
             $table->string('title');
             $table->string('description')->nullable();
