@@ -3,12 +3,12 @@
 namespace Viviniko\Content\Models;
 
 use Illuminate\Support\Facades\Config;
+use Viviniko\Rewrite\RewriteTrait;
 use Viviniko\Support\Database\Eloquent\Model;
-use Viviniko\Urlrewrite\UrlrewriteTrait;
 
 class Category extends Model
 {
-    use UrlrewriteTrait;
+    use RewriteTrait;
 
     protected $tableConfigKey = 'content.categories_table';
 
@@ -39,10 +39,5 @@ class Category extends Model
     public function items()
     {
         return $this->hasMany(Config::get('content.item'), 'category_id');
-    }
-
-    public function getUrlrewriteKeyName()
-    {
-        return 'slug';
     }
 }
