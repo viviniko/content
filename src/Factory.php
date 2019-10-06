@@ -22,7 +22,7 @@ class Factory implements FactoryContract
 
     public function make($name)
     {
-        $widget = $this->categoryRepository->findBy('slug', $name);
+        $widget = $this->categoryRepository->findBy('name', $name);
 
         return $widget ? new Viewer($this, $widget) : null;
     }
