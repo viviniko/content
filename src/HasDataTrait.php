@@ -27,6 +27,12 @@ trait HasDataTrait
         }
     }
 
+    public function mergeData($data)
+    {
+        $data = array_merge((array)$this->data, data_get($this->data()->first(['data']), 'data', []), $data);
+        $this->setData($data);
+    }
+
     /**
      * Boot the HasDataTrait trait for a model.
      *
