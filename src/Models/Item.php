@@ -24,9 +24,9 @@ class Item extends Model
 
     public function getDataAttribute()
     {
-        $data = (object)data_get($this->data()->first(['data']), 'data');
-        $data->id = $this->id;
+        $data = data_get($this->data()->first(['data']), 'data');
+        $data = array_merge($this->toArray(), $data);
 
-        return $data;
+        return (object)$data;
     }
 }
