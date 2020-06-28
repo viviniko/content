@@ -24,7 +24,7 @@ trait HasDataTrait
 
     public function setData($data)
     {
-        if ($this->withData($data)->exists()) {
+        if ($this->withData($data)->exists) {
             static::persistModelData($this);
         }
 
@@ -100,7 +100,7 @@ trait HasDataTrait
     protected static function persistModelData($model)
     {
         $model->data()->updateOrCreate(['id' => $model->getKey()], [
-            'data' => $model->getData()
+            'data' => $model->getData() ?? []
         ]);
     }
 }
