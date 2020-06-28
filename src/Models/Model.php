@@ -8,7 +8,7 @@ class Model extends Eloquent
 {
     protected $tableConfigKey = 'content.models_table';
 
-    protected $fillable = ['name', 'description', 'type', 'is_system'];
+    protected $fillable = ['name', 'description', 'is_system'];
 
     protected $casts = [
         'is_system' => 'boolean',

@@ -55,7 +55,6 @@ class CreateContentTable extends Migration
             $table->increments('id');
             $table->string('name', 32)->unique();
             $table->string('description')->nullable();
-            $table->string('type', 32);
             $table->boolean('is_system')->default(false);
             $table->timestamps();
         });
